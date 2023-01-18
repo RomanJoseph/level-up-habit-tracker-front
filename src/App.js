@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
+import { Reset, GlobalStyle } from "./common/GlobalStyle";
+import LoginPage from "./pages/loginPage";
+import RegisterPage from './pages/registerPage';
+
+import { UserProvider } from "./contexts/UserContext";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Reset/>
+      <GlobalStyle/>
+      <UserProvider>
+        <Router>
+          <Routes>
+            <Route path='/' element={<LoginPage/>}/>
+            <Route path='/register' element={<RegisterPage/>}/>
+          </Routes>
+        </Router>
+      </UserProvider>
+    </>
   );
 }
+
+/*function ProtectedRouteGuard({ children }) {
+  const token = useToken();
+
+  if (!token) {
+    return <Navigate to='/' />;
+  }
+
+  return <>
+    {children}
+  </>;
+}*/
 
 export default App;
